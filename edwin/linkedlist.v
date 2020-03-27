@@ -1,24 +1,21 @@
 struct Node<T> {
-	data T
-	next &Node
-	key int
+	mut:
+		data T
+		next &Node
 }
-
-fn (n Node<T>) get_data() ?T {
-	return n.data
-}
-
-fn (n Node<T>) get_next() Node<T> {
-	return n.next
-}
-
 
 fn main() {
-	n := Node<f64> {
+	
+	m := Node(vcalloc(sizeof(f64)))
+	
+	mut n := Node<f64> {
 		data: 10.0
-		key: 0
+		next: &m
 	}
-	assert n.data == 10.0
-	assert n.next == 0.0
-	assert n.key == 1
+
+	n.next = &Node<f64> {
+		data: 5.0
+	}
+
+	println(n.next)
 }
